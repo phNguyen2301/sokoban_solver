@@ -3,6 +3,7 @@ from pygame.locals import *
 import constants as SOKOBAN
 from copy import deepcopy
 
+
 class Player:
     def __init__(self, level):
         self.pos = level.position_player
@@ -14,7 +15,7 @@ class Player:
 
         levelHasChanged = False
         previous_level_structure = deepcopy(level.structure)
-        previous_player_pos = [x,y]
+        previous_player_pos = [x, y]
 
         if direction == K_LEFT or direction == K_q:
             self.direction = SOKOBAN.LEFT
@@ -117,4 +118,5 @@ class Player:
             top = SOKOBAN.SPRITESIZE * 3
 
         areaPlayer = pygame.Rect((0, top), (32, 32))
-        window.blit(textures[SOKOBAN.PLAYER], (self.pos[0] * SOKOBAN.SPRITESIZE, self.pos[1] * SOKOBAN.SPRITESIZE), area=areaPlayer)
+        window.blit(textures[SOKOBAN.PLAYER], (self.pos[0] * SOKOBAN.SPRITESIZE,
+                    self.pos[1] * SOKOBAN.SPRITESIZE), area=areaPlayer)

@@ -1,6 +1,7 @@
 import pygame
 import constants as SOKOBAN
 
+
 class Level:
     def __init__(self, level_to_load):
         self.last_structure_state = None
@@ -33,7 +34,7 @@ class Level:
                         level_row.append(SOKOBAN.TARGET_FILLED)
                     elif rows[y][x] == '&':
                         level_row.append(SOKOBAN.AIR)
-                        self.position_player = [x,y]
+                        self.position_player = [x, y]
                 self.structure.append(level_row)
 
         self.width = max_width * SOKOBAN.SPRITESIZE
@@ -52,9 +53,12 @@ class Level:
         for y in range(len(self.structure)):
             for x in range(len(self.structure[y])):
                 if self.structure[y][x] in textures:
-                    window.blit(textures[self.structure[y][x]], (x * SOKOBAN.SPRITESIZE, y * SOKOBAN.SPRITESIZE))
+                    window.blit(
+                        textures[self.structure[y][x]], (x * SOKOBAN.SPRITESIZE, y * SOKOBAN.SPRITESIZE))
                 else:
                     if self.structure[y][x] == SOKOBAN.TARGET_FILLED:
-                        pygame.draw.rect(window, (0,255,0), (x * SOKOBAN.SPRITESIZE, y * SOKOBAN.SPRITESIZE, SOKOBAN.SPRITESIZE, SOKOBAN.SPRITESIZE))
+                        pygame.draw.rect(window, (0, 255, 0), (x * SOKOBAN.SPRITESIZE,
+                                         y * SOKOBAN.SPRITESIZE, SOKOBAN.SPRITESIZE, SOKOBAN.SPRITESIZE))
                     else:
-                        pygame.draw.rect(window, SOKOBAN.WHITE, (x * SOKOBAN.SPRITESIZE, y * SOKOBAN.SPRITESIZE, SOKOBAN.SPRITESIZE, SOKOBAN.SPRITESIZE))
+                        pygame.draw.rect(window, SOKOBAN.WHITE, (x * SOKOBAN.SPRITESIZE,
+                                         y * SOKOBAN.SPRITESIZE, SOKOBAN.SPRITESIZE, SOKOBAN.SPRITESIZE))

@@ -1,5 +1,6 @@
 import json
 
+
 class Scores:
     def __init__(self, game):
         self.game = game

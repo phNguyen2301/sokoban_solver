@@ -11,17 +11,21 @@ from pyautogui import press, typewrite, hotkey
 
 import _thread
 import time
-def move( threadName, delay, strategy):
+
+
+def move(threadName, delay, strategy):
     for step in strategy:
-        if step in ['R','r']:
+        if step in ['R', 'r']:
             press('right')
-        if step in ['L','l']:
+        if step in ['L', 'l']:
             press('left')
-        if step in ['D','d']:
+        if step in ['D', 'd']:
             press('down')
-        if step in ['U','u']:
+        if step in ['U', 'u']:
             press('up')
         # time.sleep(0.2)
+
+
 class Game:
     def __init__(self, window):
         self.window = window
@@ -34,13 +38,14 @@ class Game:
         self.player_interface = PlayerInterface(self.player, self.level)
 
     def load_textures(self):
-       self.textures = {
-           SOKOBAN.WALL: pygame.image.load('assets/images/wall.png').convert_alpha(),
-           SOKOBAN.BOX: pygame.image.load('assets/images/box.png').convert_alpha(),
-           SOKOBAN.TARGET: pygame.image.load('assets/images/target.png').convert_alpha(),
-           SOKOBAN.TARGET_FILLED: pygame.image.load('assets/images/valid_box.png').convert_alpha(),
-           SOKOBAN.PLAYER: pygame.image.load('assets/images/player_sprites.png').convert_alpha()
-       }
+        self.textures = {
+            SOKOBAN.WALL: pygame.image.load('assets/images/wall.png').convert_alpha(),
+            SOKOBAN.BOX: pygame.image.load('assets/images/box.png').convert_alpha(),
+            SOKOBAN.TARGET: pygame.image.load('assets/images/target.png').convert_alpha(),
+            SOKOBAN.TARGET_FILLED: pygame.image.load('assets/images/valid_box.png').convert_alpha(),
+            SOKOBAN.PLAYER: pygame.image.load(
+                'assets/images/player_sprites.png').convert_alpha()
+        }
 
     def load_level(self):
         self.level = Level(self.index_level)
@@ -85,14 +90,17 @@ class Game:
             self.player_interface.mouse_pos = event.pos
 
     def update_screen(self):
-        pygame.draw.rect(self.board, SOKOBAN.WHITE, (0,0, self.level.width * SOKOBAN.SPRITESIZE, self.level.height * SOKOBAN.SPRITESIZE))
-        pygame.draw.rect(self.window, SOKOBAN.WHITE, (0,0,SOKOBAN.WINDOW_WIDTH,SOKOBAN.WINDOW_HEIGHT))
+        pygame.draw.rect(self.board, SOKOBAN.WHITE, (0, 0, self.level.width *
+                         SOKOBAN.SPRITESIZE, self.level.height * SOKOBAN.SPRITESIZE))
+        pygame.draw.rect(self.window, SOKOBAN.WHITE,
+                         (0, 0, SOKOBAN.WINDOW_WIDTH, SOKOBAN.WINDOW_HEIGHT))
 
         self.level.render(self.board, self.textures)
         self.player.render(self.board, self.textures)
 
         pox_x_board = (SOKOBAN.WINDOW_WIDTH / 2) - (self.board.get_width() / 2)
-        pos_y_board = (SOKOBAN.WINDOW_HEIGHT / 2) - (self.board.get_height() / 2)
+        pos_y_board = (SOKOBAN.WINDOW_HEIGHT / 2) - \
+            (self.board.get_height() / 2)
         self.window.blit(self.board, (pox_x_board, pos_y_board))
 
         self.player_interface.render(self.window, self.index_level)
@@ -110,17 +118,17 @@ class Game:
 
     def auto_move(self):
         # strategy = get_move(self.level.structure[:-1], self.level.position_player, 'dfs')
-        strategy = get_move(self.level.structure[:-1], self.level.position_player, 'bfs')
+        strategy = get_move(
+            self.level.structure[:-1], self.level.position_player, 'bfs')
         # strategy = get_move(self.level.structure[:-1], self.level.position_player, 'ucs')
         # with open("assets/sokobanSolver/Solverlevel_" + str(self.index_level) + ".txt", 'w+') as solver_file:
         #     for listitem in strategy:
         #         solver_file.write('%s, ' % listitem)
         if strategy is not None:
             try:
-                _thread.start_new_thread( move, ("Thread-1", 2, strategy) )
+                _thread.start_new_thread(move, ("Thread-1", 2, strategy))
             except:
-                print ("Error: unable to start thread")
+                print("Error: unable to start thread")
 
 
 # Define a function for the thread
-

@@ -1,2 +1,3 @@
 ### How to run
-```python3 Sokoban.py```
+
+`python Sokoban.py`
